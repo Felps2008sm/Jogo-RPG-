@@ -1,0 +1,40 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node/npm
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Maven
+target/
+.classpath
+.project
+.settings/
+*.jar
+*.war
+
+# Build
+build/
+dist/
+
+# Logs
+*.log
+log/
+
+# Environment
+.env
+.env.local
+
+# Database
+*.db
+*.sqlite
+
+# OS
+Thumbs.db
+.DS_Store
