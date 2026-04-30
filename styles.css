@@ -1,0 +1,455 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Character Creation Screen */
+#characterCreationScreen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.creation-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.creation-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
+.appearance-group {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.color-picker {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.color-picker label {
+    margin-bottom: 0;
+}
+
+.color-picker input[type="color"] {
+    width: 60px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.preview-container {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.preview-container h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#characterPreview {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(to bottom, #87ceeb, #e0f6ff);
+}
+
+#previewStats {
+    text-align: left;
+    font-size: 0.9em;
+    color: #555;
+}
+
+#previewStats p {
+    margin: 5px 0;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-danger {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #ddd;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #bbb;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+}
+
+/* Game Screen */
+#gameScreen {
+    flex-direction: column;
+    background: #000;
+}
+
+.game-header {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #667eea;
+}
+
+.player-info {
+    flex: 1;
+}
+
+.player-info h2 {
+    margin-bottom: 5px;
+}
+
+.status-bar {
+    display: flex;
+    gap: 15px;
+}
+
+.health-bar, .mana-bar {
+    width: 200px;
+    height: 20px;
+    background: #333;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid #555;
+    position: relative;
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff4444, #ff8844);
+    width: 100%;
+    transition: width 0.2s;
+}
+
+.mana-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4488ff, #88ccff);
+    width: 100%;
+    transition: width 0.2s;
+}
+
+.health-bar span, .mana-bar span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.game-stats {
+    text-align: right;
+    min-width: 150px;
+}
+
+.game-stats p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.game-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    border: 3px solid #667eea;
+    background: linear-gradient(to bottom, #87ceeb 0%, #e0f6ff 50%, #90ee90 50%, #2d5016 100%);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.game-footer {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid #667eea;
+}
+
+.controls {
+    flex: 1;
+}
+
+.controls p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Pause Screen */
+#pauseScreen {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.pause-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease-out;
+}
+
+.pause-container h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.pause-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pause-menu .btn-primary,
+.pause-menu .btn-secondary,
+.pause-menu .btn-danger {
+    margin-top: 0;
+}
+
+/* Inventory Screen */
+#inventoryScreen {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.inventory-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.inventory-container h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    min-height: 300px;
+}
+
+.inventory-slot {
+    background: #f5f5f5;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.inventory-slot:hover {
+    border-color: #667eea;
+    background: #f0f0ff;
+}
+
+.inventory-slot.empty {
+    color: #ccc;
+}
+
+/* Death Screen */
+#deathScreen {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.death-container {
+    background: rgba(255, 0, 0, 0.1);
+    border: 3px solid red;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
+}
+
+.death-container h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ff4444;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.death-container p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+}
+
+.death-container button {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .creation-container {
+        max-width: 95%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .status-bar {
+        flex-direction: column;
+    }
+
+    .health-bar, .mana-bar {
+        width: 150px;
+    }
+
+    #gameCanvas {
+        width: 90vw;
+        height: auto;
+    }
+
+    .game-footer {
+        flex-direction: column;
+    }
+
+    .inventory-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
