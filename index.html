@@ -3,293 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo RPG - Uma Aventura Épica</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/game.css">
-    <link rel="stylesheet" href="styles/responsive.css">
+    <title>RPG Terraria - Aventura Épica</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Menu Principal -->
-    <div id="mainMenu" class="menu-container active">
-        <div class="menu-content">
-            <h1 class="game-title">⚔️ JOGO RPG ⚔️</h1>
-            <p class="subtitle">Uma Aventura Épica Aguarda por Você</p>
+    <!-- TELA DE CRIAÇÃO DE PERSONAGEM -->
+    <div id="characterScreen" class="screen active">
+        <div class="character-creation">
+            <h1>⚔️ CRIAR SEU PERSONAGEM ⚔️</h1>
             
-            <div class="menu-buttons">
-                <button id="newGameBtn" class="btn btn-primary">Novo Jogo</button>
-                <button id="loadGameBtn" class="btn btn-secondary">Carregar Jogo</button>
-                <button id="settingsBtn" class="btn btn-secondary">Configurações</button>
-                <button id="creditsBtn" class="btn btn-secondary">Créditos</button>
+            <div class="creation-wrapper">
+                <!-- Formulário Esquerdo -->
+                <div class="creation-form">
+                    <div class="form-section">
+                        <h2>Informações Básicas</h2>
+                        
+                        <div class="form-group">
+                            <label>Nome do Aventureiro:</label>
+                            <input type="text" id="playerName" placeholder="Digite seu nome..." maxlength="20">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Escolha sua Classe:</label>
+                            <div class="class-selector">
+                                <div class="class-card" data-class="warrior">
+                                    <div class="class-icon">🗡️</div>
+                                    <h3>Guerreiro</h3>
+                                    <p>Força Alta<br>HP: 150 | Ataque: 15</p>
+                                </div>
+                                <div class="class-card" data-class="mage">
+                                    <div class="class-icon">🔥</div>
+                                    <h3>Mago</h3>
+                                    <p>Magia Poderosa<br>Mana: 200 | Ataque: 12</p>
+                                </div>
+                                <div class="class-card" data-class="archer">
+                                    <div class="class-icon">🏹</div>
+                                    <h3>Arqueiro</h3>
+                                    <p>Velocidade Alta<br>HP: 120 | Ataque: 13</p>
+                                </div>
+                                <div class="class-card" data-class="paladin">
+                                    <div class="class-icon">⚡</div>
+                                    <h3>Paladino</h3>
+                                    <p>Equilibrado<br>HP: 130 | Defesa: 8</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dificuldade do Jogo:</label>
+                            <div class="difficulty-selector">
+                                <label class="difficulty-option">
+                                    <input type="radio" name="difficulty" value="easy">
+                                    😊 <span>Fácil</span>
+                                </label>
+                                <label class="difficulty-option">
+                                    <input type="radio" name="difficulty" value="normal" checked>
+                                    ⚔️ <span>Normal</span>
+                                </label>
+                                <label class="difficulty-option">
+                                    <input type="radio" name="difficulty" value="hard">
+                                    💀 <span>Difícil</span>
+                                </label>
+                                <label class="difficulty-option">
+                                    <input type="radio" name="difficulty" value="nightmare">
+                                    👹 <span>Pesadelo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Personalize sua Aparência</h2>
+                        
+                        <div class="form-group">
+                            <label>Cor do Corpo:</label>
+                            <div class="color-input-group">
+                                <input type="color" id="bodyColor" value="#FF6B6B">
+                                <span id="bodyColorCode">#FF6B6B</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cor da Roupa:</label>
+                            <div class="color-input-group">
+                                <input type="color" id="clothColor" value="#4ECDC4">
+                                <span id="clothColorCode">#4ECDC4</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cor do Cabelo:</label>
+                            <div class="color-input-group">
+                                <input type="color" id="hairColor" value="#FFCC00">
+                                <span id="hairColorCode">#FFCC00</span>
+                            </div>
+                        </div>
+
+                        <div class="preset-colors">
+                            <label>Cores Pré-definidas:</label>
+                            <div class="color-presets">
+                                <button class="preset" style="background: linear-gradient(135deg, #FF6B6B, #FFB347, #FFFF99);" title="Chama"></button>
+                                <button class="preset" style="background: linear-gradient(135deg, #4ECDC4, #44A08D, #087E8B);" title="Oceano"></button>
+                                <button class="preset" style="background: linear-gradient(135deg, #95E1D3, #F38181, #EAA9D3);" title="Noturno"></button>
+                                <button class="preset" style="background: linear-gradient(135deg, #6C5CE7, #A29BFE, #74B9FF);" title="Místico"></button>
+                                <button class="preset" style="background: linear-gradient(135deg, #2D3436, #636E72, #DFE6E9);" title="Sombrio"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Direito -->
+                <div class="preview-section">
+                    <div class="preview-box">
+                        <h2>Prévia do Personagem</h2>
+                        <canvas id="characterCanvas" width="200" height="300"></canvas>
+                        
+                        <div class="stats-preview">
+                            <h3>Atributos</h3>
+                            <div class="stat-item">
+                                <span>Vida:</span>
+                                <div class="stat-bar">
+                                    <div id="previewHP" class="stat-fill" style="width: 100%; height: 20px; background: #FF6B6B;"></div>
+                                </div>
+                                <span id="previewHPText">100/100</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Mana:</span>
+                                <div class="stat-bar">
+                                    <div id="previewMana" class="stat-fill" style="width: 100%; height: 20px; background: #4ECDC4;"></div>
+                                </div>
+                                <span id="previewManaText">50/50</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Ataque:</span>
+                                <span id="previewAttack">10</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Defesa:</span>
+                                <span id="previewDefense">5</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Velocidade:</span>
+                                <span id="previewSpeed">8</span>
+                            </div>
+                        </div>
+
+                        <button id="startGameBtn" class="btn-primary">▶️ COMEÇAR JOGO</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Criação de Personagem -->
-    <div id="characterCreation" class="menu-container">
-        <div class="menu-content">
-            <h2>Criar Personagem</h2>
-            
-            <div class="form-group">
-                <label for="playerName">Nome do Personagem:</label>
-                <input type="text" id="playerName" placeholder="Digite seu nome" maxlength="20">
-            </div>
-
-            <div class="form-group">
-                <label for="playerClass">Classe:</label>
-                <select id="playerClass">
-                    <option value="warrior">⚔️ Guerreiro</option>
-                    <option value="mage">🔮 Mago</option>
-                    <option value="rogue">🗡️ Ladino</option>
-                    <option value="paladin">✨ Paladino</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Escolha uma Cor:</label>
-                <div class="color-picker">
-                    <input type="color" id="playerColor" value="#FF6B6B">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="difficulty">Dificuldade:</label>
-                <select id="difficulty">
-                    <option value="easy">Fácil</option>
-                    <option value="normal" selected>Normal</option>
-                    <option value="hard">Difícil</option>
-                    <option value="nightmare">Pesadelo</option>
-                </select>
-            </div>
-
-            <div class="menu-buttons">
-                <button id="confirmCharBtn" class="btn btn-primary">Iniciar Jogo</button>
-                <button id="backToMenuBtn" class="btn btn-secondary">Voltar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Jogo Principal -->
-    <div id="gameContainer" class="game-container">
-        <!-- Cabeçalho do Jogo -->
-        <header class="game-header">
-            <div class="player-info">
-                <h2 id="playerNameDisplay">Aventureiro</h2>
-                <div class="stats-row">
-                    <div class="stat">
-                        <span class="label">Nível:</span>
-                        <span id="playerLevel" class="value">1</span>
-                    </div>
-                    <div class="stat">
-                        <span class="label">Exp:</span>
-                        <span id="playerExp" class="value">0/100</span>
-                    </div>
-                    <div class="stat">
-                        <span class="label">Ouro:</span>
-                        <span id="playerGold" class="value">0</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-buttons-top">
-                <button id="inventoryBtn" class="btn-icon">🎒 Inventário</button>
-                <button id="mapBtn" class="btn-icon">🗺️ Mapa</button>
-                <button id="questsBtn" class="btn-icon">📜 Missões</button>
-                <button id="settingsGameBtn" class="btn-icon">⚙️ Configurações</button>
-            </div>
-        </header>
-
-        <!-- Área Principal do Jogo -->
-        <main class="game-main">
-            <!-- Painel Esquerdo - Personagem e Stats -->
-            <aside class="game-sidebar left-sidebar">
-                <div class="character-panel">
-                    <div id="characterDisplay" class="character-visual">👤</div>
-                    <div class="character-stats">
-                        <h3>Atributos</h3>
-                        <div class="stat-bar">
-                            <label>HP:</label>
-                            <div class="bar">
-                                <div id="hpBar" class="bar-fill" style="width: 100%;"></div>
-                            </div>
-                            <span id="hpText">100/100</span>
-                        </div>
-                        <div class="stat-bar">
-                            <label>Mana:</label>
-                            <div class="bar">
-                                <div id="manaBar" class="bar-fill" style="width: 100%;"></div>
-                            </div>
-                            <span id="manaText">50/50</span>
-                        </div>
-                        <div class="stat-bar">
-                            <label>Stamina:</label>
-                            <div class="bar">
-                                <div id="staminaBar" class="bar-fill" style="width: 100%;"></div>
-                            </div>
-                            <span id="staminaText">75/75</span>
-                        </div>
-                    </div>
-
-                    <div class="abilities">
-                        <h3>Habilidades</h3>
-                        <div id="abilitiesList" class="abilities-list"></div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Centro - Área de Jogo -->
-            <section class="game-center">
-                <!-- Área de Exploração -->
-                <div id="explorationArea" class="area">
-                    <div class="area-title">
-                        <h3 id="areaName">Floresta do Início</h3>
-                        <p id="areaDescription">Uma floresta mística e misteriosa</p>
-                    </div>
-
-                    <div class="area-content">
-                        <div id="enemyDisplay" class="entity-display">
-                            <div class="entity-placeholder">Nenhum inimigo à vista...</div>
-                        </div>
-                    </div>
-
-                    <div id="actionButtons" class="action-buttons">
-                        <button id="exploreBtn" class="btn btn-primary">🔍 Explorar</button>
-                        <button id="restBtn" class="btn btn-secondary">😴 Descansar</button>
-                        <button id="talkBtn" class="btn btn-secondary">💬 Conversar</button>
-                    </div>
-                </div>
-
-                <!-- Área de Combate -->
-                <div id="combatArea" class="area hidden">
-                    <div class="combat-header">
-                        <div class="combatant">
-                            <h4>Você</h4>
-                            <div id="playerCombatHP" class="combat-hp-bar">
-                                <div class="bar-fill"></div>
-                            </div>
-                        </div>
-                        <div class="vs">VS</div>
-                        <div class="combatant">
-                            <h4 id="enemyName">Inimigo</h4>
-                            <div id="enemyCombatHP" class="combat-hp-bar">
-                                <div class="bar-fill"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="combat-log">
-                        <div id="combatLog" class="log-content"></div>
-                    </div>
-
-                    <div id="combatActions" class="combat-actions">
-                        <button id="attackBtn" class="btn btn-primary">⚔️ Atacar</button>
-                        <button id="defendBtn" class="btn btn-secondary">🛡️ Defender</button>
-                        <button id="abilityBtn" class="btn btn-secondary">✨ Habilidade</button>
-                        <button id="itemBtn" class="btn btn-secondary">🧪 Item</button>
-                    </div>
-                </div>
-
-                <!-- Área de Diálogo -->
-                <div id="dialogArea" class="area hidden">
-                    <div class="dialog-container">
-                        <div id="npcDisplay" class="npc-display">👨‍🌾</div>
-                        <div class="dialog-content">
-                            <h3 id="npcName">NPC</h3>
-                            <p id="npcDialog">...</p>
-                        </div>
-                    </div>
-                    <div id="dialogChoices" class="dialog-choices"></div>
-                </div>
-            </section>
-
-            <!-- Painel Direito - Log de Eventos -->
-            <aside class="game-sidebar right-sidebar">
-                <div class="event-log">
-                    <h3>📋 Log de Eventos</h3>
-                    <div id="eventLog" class="log-content"></div>
-                </div>
-
+    <!-- TELA PRINCIPAL DO JOGO -->
+    <div id="gameScreen" class="screen">
+        <div class="game-ui-top">
+            <div class="player-header">
+                <h2 id="playerTitle">Aventureiro</h2>
                 <div class="quick-stats">
-                    <h3>⚡ Combate</h3>
-                    <div class="stat-item">
-                        <span>Ataque:</span>
-                        <span id="statAttack">10</span>
+                    <div class="quick-stat">
+                        <span>Nível:</span>
+                        <span id="displayLevel">1</span>
                     </div>
-                    <div class="stat-item">
-                        <span>Defesa:</span>
-                        <span id="statDefense">5</span>
+                    <div class="quick-stat">
+                        <span>EXP:</span>
+                        <span id="displayExp">0/100</span>
                     </div>
-                    <div class="stat-item">
-                        <span>Velocidade:</span>
-                        <span id="statSpeed">8</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Sorte:</span>
-                        <span id="statLuck">5</span>
+                    <div class="quick-stat">
+                        <span>Gold:</span>
+                        <span id="displayGold">0</span>
                     </div>
                 </div>
-            </aside>
-        </main>
+            </div>
+            <div class="game-controls">
+                <button id="inventoryBtn" class="btn-small">🎒</button>
+                <button id="statsBtn" class="btn-small">📊</button>
+                <button id="pauseBtn" class="btn-small">⏸️</button>
+            </div>
+        </div>
 
-        <!-- Footer -->
-        <footer class="game-footer">
-            <p id="statusMessage">Bem-vindo à sua aventura!</p>
-        </footer>
+        <div class="game-wrapper">
+            <!-- PAINEL ESQUERDO -->
+            <div class="game-sidebar-left">
+                <div class="hp-mana-section">
+                    <div class="stat-box">
+                        <label>Vida</label>
+                        <div class="stat-bar-large">
+                            <div id="hpBar" class="bar-fill" style="background: #FF6B6B;"></div>
+                        </div>
+                        <span id="hpText">100/100</span>
+                    </div>
+                    <div class="stat-box">
+                        <label>Mana</label>
+                        <div class="stat-bar-large">
+                            <div id="manaBar" class="bar-fill" style="background: #4ECDC4;"></div>
+                        </div>
+                        <span id="manaText">50/50</span>
+                    </div>
+                </div>
+
+                <div class="abilities-section">
+                    <h3>Habilidades</h3>
+                    <div id="abilityList" class="ability-list"></div>
+                </div>
+            </div>
+
+            <!-- CANVAS PRINCIPAL DO JOGO -->
+            <div class="game-main">
+                <canvas id="gameCanvas" width="1000" height="600"></canvas>
+            </div>
+
+            <!-- PAINEL DIREITO -->
+            <div class="game-sidebar-right">
+                <div class="combat-stats">
+                    <h3>⚡ Atributos de Combate</h3>
+                    <div class="stat-item">
+                        <span>ATQ:</span>
+                        <span id="attackValue">10</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>DEF:</span>
+                        <span id="defenseValue">5</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>VEL:</span>
+                        <span id="speedValue">8</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>SORTE:</span>
+                        <span id="luckValue">5</span>
+                    </div>
+                </div>
+
+                <div class="event-log">
+                    <h3>📋 Eventos</h3>
+                    <div id="eventsList" class="events-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-footer">
+            <div class="controls-info">
+                <p>⬅️ ➡️ Mover | W Pular | Clique Atacar | E Habilidade | I Inventário | P Pausa</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Modais -->
-    <!-- Modal de Inventário -->
+    <!-- TELA DE PAUSA -->
+    <div id="pauseScreen" class="screen overlay">
+        <div class="pause-menu">
+            <h1>⏸️ JOGO PAUSADO</h1>
+            <div class="pause-buttons">
+                <button id="resumeBtn" class="btn-primary">▶️ Continuar</button>
+                <button id="pauseInventoryBtn" class="btn-secondary">🎒 Inventário</button>
+                <button id="pauseStatsBtn" class="btn-secondary">📊 Estatísticas</button>
+                <button id="settingsBtn" class="btn-secondary">⚙️ Configurações</button>
+                <button id="mainMenuBtn" class="btn-danger">🏠 Menu Principal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA DE MORTE -->
+    <div id="deathScreen" class="screen overlay">
+        <div class="death-menu">
+            <h1>💀 VOCÊ FOI DERROTADO</h1>
+            <p id="deathMessage">Seus inimigos foram muito fortes...</p>
+            <div class="death-buttons">
+                <button id="respawnBtn" class="btn-primary">🔄 Tentar Novamente</button>
+                <button id="menuBtn" class="btn-danger">🏠 Menu Principal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INVENTÁRIO -->
     <div id="inventoryModal" class="modal hidden">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>🎒 Inventário</h2>
-                <button class="close-btn">&times;</button>
+                <button class="close-modal">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="inventory-grid" id="inventoryGrid"></div>
-                <div id="emptyInventory" class="empty-message">Inventário vazio</div>
-            </div>
+            <div class="inventory-grid" id="inventoryGrid"></div>
+            <div id="emptyInventory" class="empty-message">Inventário vazio</div>
         </div>
     </div>
 
-    <!-- Modal de Mapa -->
-    <div id="mapModal" class="modal hidden">
+    <!-- MODAL ESTATÍSTICAS -->
+    <div id="statsModal" class="modal hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>🗺️ Mapa do Mundo</h2>
-                <button class="close-btn">&times;</button>
+                <h2>📊 Estatísticas</h2>
+                <button class="close-modal">&times;</button>
             </div>
-            <div class="modal-body">
-                <div id="gameMap" class="game-map"></div>
-            </div>
+            <div class="stats-grid" id="statsGrid"></div>
         </div>
     </div>
 
-    <!-- Modal de Missões -->
-    <div id="questsModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📜 Missões</h2>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="active-quests">Ativas</button>
-                    <button class="tab-btn" data-tab="completed-quests">Completas</button>
-                </div>
-                <div id="activeQuests" class="tab-content active"></div>
-                <div id="completedQuests" class="tab-content"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/utils.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/combat.js"></script>
-    <script src="js/inventory.js"></script>
-    <script src="js/npc.js"></script>
-    <script src="js/quest.js"></script>
-    <script src="js/map.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>
